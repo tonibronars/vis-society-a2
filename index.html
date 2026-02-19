@@ -13,45 +13,67 @@
 		</h1>
 
 		<p>
-			<strong>Your Name</strong> — <em>Your MIT Email Address</em>
+			<strong>Antonia Bronars</strong> — <em>bronars@mit.edu</em>
 		</p>
 	</header>
 	<main>
 		<section>
-			<h2>Subtheme: [ENTER SUBTHEME]</h2>
-
+			<h2>Subtheme: Zoning and Housing Supply</h2>
 			<h3>Overall Analysis Questions</h3>
 			<ol>
-				<li>QUESTION_1</li>
-				<li>QUESTION_2</li>
-				<li>QUESTION_3</li>
-				<li>...</li>
+				<li>Which communities use single-family zoning most aggressively, and who lives there?
+					<p><small>Reason: </small></p>
+				</li>
+				<li>Is exclusionary zoning mostly about race, class, or both?
+					<p><small>Reason: </small></p>
+				</li>
+				<li>Is the MBTA Communities Act actually reaching the right places?
+					<p><small>Reason: </small></p>
+				</li>
 			</ol>
 		</section>
 
 		<section>
 			<h2>Discoveries & Insights</h2>
+			I started by reading the metadata, and discovered that each municipality should contain the following information: (1) the fraction of land area for single-family homes vs. other housing, (2) population (broken out by demographic), (3) number of households (broken out by size), and (4) number of households (broken out by income). Each of these are further broken out by whether the zoning is single-family vs. other housing. <br>
+			To audit the dataset, I first checked whether the single-family vs. other household breakdowns were consistent by population and by land area (i.e. is (1) consistent with (2)). 
+			I visualize the percent of single-family zoning by land area as a dark blue dot, and the percent by population as a light blue bar in Figure 1. Intuitively, the light blue bar should track the dark blue dot.
+			While there were many towns for which the data was suspicious (for example, 50% land area with 100% population for single-family housing), there were seven towns for which the data was demonstrably inconsistent (Figure 1).
 
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/pop_vs_land_area.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Seven towns had inconsistent data when comparing land area vs. population in single-family zoning. Failure modes included no population data, land zoned for single-family housing and no population (Waltham), or population in single-family housing but no land area (Essex, Stow). All errors shown in red boxes.
 				</figcaption>
 			</figure>
 
+			I next checked whether the demographic breakdown of the population is consistent: i.e. is the sum of males and females equal to the total population, for each town? I repeated this check for all three of gender, age, and race. I found that in each case, the demographic breakdown of the population is consistent with the total population numbers. I show the representative result for the gender audit in Figure 2.
+
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/gender-audit.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				The population breakdown by gender is consistent with the total population recorded for each town. This was is true for the age and race breakdowns (not shown).
 				</figcaption>
 			</figure>
 
+			Finally, the metadata notes that two separate census years are used to report household data by size vs. by income.
+			Therefore, I wanted to check how different the sample sizes were across years to get a sense of whether one dataset was more reliable than the other.
+			I found that overall, the income dataset (dark blue bars, Figure 3) is much larger than the household size dataset (light blue bars, Figure 3).
+			Noteably, the same four towns are missing household size data, which makes it highly likely that the population data (Figure 1, 2) is coming from the same, smaller census dataset as the
+			household income.
+
+
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/size-vs-income.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Number of households in the household size vs. income datasets. The income dataset includes more households than the household size dataset. The same four towns (red box) are missing from the household size dataset, but appear in the income dataset.
 				</figcaption>
 			</figure>
+
+			In conclusion, I found that while the census data for a given statistic is internally consistent (ex. the demographic breakdowns of the population indeed sum to the total population in a given census year), combining data collected across different census years (for example, analyzing the population and household size numbers 
+			in conjunction withinthe income numbers) could yield misleading conclusions. I also found that different statistics, even within the same census year (land area vs. population), were less internally consistent. A small subset of towns had clearly inconsistent land area / population statistics, and a larger group had statistics that seemed
+			unlikely to be accurate (ex. extreme disparities between the population and land area percentages for single-family zones).
+			Going forward, I will filter out the data for the seven clearly inaccurate towns (red boxes in Figure 1). Beyond that, I will note where the reader should interpret my results with caution, given the outcome of my data audit.
 
 			<figure>
 				<img src="IMAGE_FILENAME" alt="" />
