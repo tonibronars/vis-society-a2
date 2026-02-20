@@ -107,21 +107,32 @@
 				</figcaption>
 			</figure>
 
-			Moving on to my second question, I will interrogate whether exclusionary zoning is mostly about race, class, or both. A proxy for answering that question is whether race or income is more predictive of zoning practices.
+			Moving on to my second question, I will interrogate whether exclusionary zoning is mostly about race, class, or both. A proxy for answering that question is whether race or income is more correlated with single-family zoning practices. To do so, I moved off of Tableau (I couldn't figure out how to make the visualization I had in mind!) and used matplotlib.
+			I created a scatter plot of average household income vs. fraction of white households for each municipality. The dots themselves are colored by the fraction of land area allocated for single family housing (Figure 6). On the axes of the plot, I also bucketed the average income / average fraction white variables, and plotted the average fraction
+			of area allocated for single family housing in each bucket. The purpose of this element is to visually compare the strength of the gradient with increasing income / whiteness, with increasing amount of land allocated for single-family housing.
+			By comparing the gradient strength visually, I found that household income is more clearly correlated with the amount of single-family zoning, since the redness and the height of the bars largely monotonically increase with increasing household income.
+			On the other hand, the bars remain a similar height / color with increasing whiteness (Figure 6). This census data seems to indicate then that
+			exclusionary zoning is more associated with class than race. One caveat to my results is that the income data and the demographic data / single family housing data were collected on different census years. Results should therefore be interpreted with caution.
+		
 
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/scatter_colored_filtered.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Fraction of land for single family zoning, compared to average household income and race. Each municipality is visualized as a single point. Bars along the sides of the plot represent aggregated metrics, showing the trend of how the amount of single family zoning changes with increasing household income, and increasingly white populations.
 				</figcaption>
 			</figure>
 
+			I also note that the trend is highly dependent on whether I include the 38 municipalities for which the dataset reports 0% single family zoning (Figure 7). As I mentioned in the discussion of Figure 4, I cannot be certain that the data is inaccurate, but it is highly suspect. Figure 7 shows the same visualization, now 
+			with those 38 municipalities included. Their inclusion completely skews the result, destroying the trend we previously observed between household income and amount of single-family zoning.
+
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/scatter_colored_all.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Fraction of land for single family zoning, compared to average household income and race, including municipalities with 0% single family zoning. The trend between income and amount of single family zoning we observed previously now disappears.
 				</figcaption>
 			</figure>
+
+			To answer my final question, I first check whether the MBTA communities are actually zoning for other housholds, in addition to single family households.
 
 			<figure>
 				<img src="IMAGE_FILENAME" alt="" />
