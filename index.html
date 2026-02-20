@@ -38,10 +38,10 @@
 			I started by reading the metadata, and discovered that each municipality should contain the following information: (1) the fraction of land area for single-family homes vs. other housing, (2) population (broken out by demographic), (3) number of households (broken out by size), and (4) number of households (broken out by income). Each of these are further broken out by whether the zoning is single-family vs. other housing. <br>
 			To audit the dataset, I first checked whether the single-family vs. other household breakdowns were consistent by population and by land area (i.e. is (1) consistent with (2)). 
 			I visualize the percent of single-family zoning by land area as a dark blue dot, and the percent by population as a light blue bar in Figure 1. Intuitively, the light blue bar should track the dark blue dot.
-			While there were many towns for which the data was suspicious (for example, 50% land area with 100% population for single-family housing), there were seven towns for which the data was demonstrably inconsistent (Figure 1).
+			While there were many towns for which the data was suspicious (for example, 0% land area / population for single-family housing), there were seven towns for which the data was demonstrably inconsistent (Figure 1).
 
 			<figure>
-				<img src="imgs/pop_vs_land_area.png" alt="" />
+				<img src="imgs/audit1.png" alt="" />
 				<figcaption>
 				Seven towns had inconsistent data when comparing land area vs. population in single-family zoning. Failure modes included no population data, land zoned for single-family housing and no population (Waltham), or population in single-family housing but no land area (Essex, Stow). All errors shown in red boxes.
 				</figcaption>
@@ -52,14 +52,16 @@
 			<figure>
 				<img src="imgs/gender-audit.png" alt="" />
 				<figcaption>
-				The population breakdown by gender is consistent with the total population recorded for each town. This was is true for the age and race breakdowns (not shown).
+				The population breakdown by gender is consistent with the total population recorded for each town. This is true for the age and race breakdowns (not shown).
 				</figcaption>
 			</figure>
 
 			Finally, the metadata notes that two separate census years are used to report household data by size vs. by income.
-			Therefore, I wanted to check how different the sample sizes were across years to get a sense of whether one dataset was more reliable than the other.
-			I found that overall, the income dataset (dark blue bars, Figure 3) is much larger than the household size dataset (light blue bars, Figure 3).
-			Noteably, the same four towns are missing household size data, which makes it highly likely that the population data (Figure 1, 2) is coming from the same, smaller census dataset as the
+			Therefore, I wanted to check how different the sample sizes (number of housesholds for which data is collected) are across years, to get a sense of whether it is reasonable to draw
+			conclusions from the combination of household size and income data. If the datasets were both large, and similarly distributed across towns, I would conclude that the census data collection process
+			was likely similar across years, and therefore that it is safer to combine data across years.
+			However, I found that overall, the income dataset (dark blue bars, Figure 3) is much larger than the household size dataset (light blue bars, Figure 3), and that the data distribution across towns is inconsistent for the two census years.
+			Furthermore, the same four towns are missing household size data, which makes it highly likely that the population data (Figure 1, 2) is coming from the same, smaller census dataset as the
 			household income.
 
 
@@ -74,20 +76,38 @@
 			in conjunction withinthe income numbers) could yield misleading conclusions. I also found that different statistics, even within the same census year (land area vs. population), were less internally consistent. A small subset of towns had clearly inconsistent land area / population statistics, and a larger group had statistics that seemed
 			unlikely to be accurate (ex. extreme disparities between the population and land area percentages for single-family zones).
 			Going forward, I will filter out the data for the seven clearly inaccurate towns (red boxes in Figure 1). Beyond that, I will note where the reader should interpret my results with caution, given the outcome of my data audit.
-
+			<br>
+			To answer my first question "Which communities use single-family zoning most aggressively, and who lives there?". I started
+			by building a definition of "aggressively". I visualized the fraction of land that is allocated for single-family housing, vs. the fraction of the
+			population that lives in single family housing, for each municipality. I then split the towns into quadrants
+			based on whether there was an above/below average amount of land/population in single-family housing. I then defined the quadrant with high land area and low population
+			in single-family housing as the most "aggressive" zoning: these are the towns for which land is being misallocated to single-family zoning (Figure 4).
+			Note that the size of the dots in the plot are calculated based on the log of the number of towns that share the same point. I chose log scale because the (0%, 0%) point is shared by 38 towns, and when I scaled the 
+			size of the dots linearly with the number of towns, the point at the origin dwarfed the rest of the plot. I did not want to overly draw attention to the origin, because it is not relevant for the story that I am trying to tell with this visualization. 
+			Also, I have a hunch that the origin points are a result of faulty census data (it is unlikely that 38 towns have no single family zoning, and no population living in single family homes). I left the data in because I cannot be sure that
+			it is a result of an inaccuracy, but I also do not want to overly draw attention to something that could simply be an error in the dataset. I thought sizing the points based on the log of the number of towns sharing the same point
+			was a good middle ground that negotiated this tradeoff for me.
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/result1-2.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Single family housing land allocation vs. population for towns in the Boston suburbs. Size of the dots represent the number of towns that share a singe point. Towns that have a high fraction land area allocated for single family housing, but a small fraction of the population
+				living there, are high-impact towns for zoning reform. They are colored and red and called out by name.
 				</figcaption>
 			</figure>
 
+			I next dug into the demographic breakdown for single-family vs. other households in towns with aggressive zoning (high fraction of land, and low fraction of population living in single-family housing). I found that across both groups,
+			the plurality of households earned 200k+ per year, but the fraction was smaller for other households compared with single-family households.
+			Similarly, the majority of the population was female in both groups, but the fraction was higher in other households compared with single-family households. Finally, in both groups the plurality of households were white, but the fraction was smaller
+			in other households compared with single-family households (Figure 5).
+
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/result2.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				In towns with aggressive single-family zoning, single-family households are higher income, more male, and more white compared with other households.
 				</figcaption>
 			</figure>
+
+			Moving on to my second question, I will interrogate whether exclusionary zoning is mostly about race, class, or both. A proxy for answering that question is whether race or income is more predictive of zoning practices.
 
 			<figure>
 				<img src="IMAGE_FILENAME" alt="" />
