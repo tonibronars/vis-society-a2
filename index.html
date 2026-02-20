@@ -22,13 +22,16 @@
 			<h3>Overall Analysis Questions</h3>
 			<ol>
 				<li>Which communities use single-family zoning most aggressively, and who lives there?
-					<p><small>Reason: </small></p>
+					<p><small>Reason: Based on "The Illegal City of Somerville", I am interested in investigating potential discrepancies between zoning laws and population distributions in the Boston suburbs. I am additionally interested in profiling the demographics of the people who live in these towns which are relying on aggressive single-family zoning (particularly when it does not align with where the population is actually distributed), and gaining an understanding of whether the population demographics differ in single family homes vs. other housing. If this were the case, it could point to who is most hurt by exclusionary zoning laws.
+					</small></p>
 				</li>
 				<li>Is exclusionary zoning mostly about race, class, or both?
-					<p><small>Reason: </small></p>
+					<p><small>Reason: In "Exclusionary by Design: An Investigation of Zoning's Use as a Tool of Race, Class, and Family Exclusion in Boston's Suburbs, 1920 to Today", the authors assert that town planning documents from the 1960s and 1970s reveal that exclusionary zoning was undertaken for the explicit purpose of maintaining the socioeconomic and racial status quo in the Boston suburbs. I am curious whether we can use the census data to check if exclusionary zoning laws were "successful" in pushing out low-income and minority households. I am also curious whether household income or race, or both equally, in a town is most correllated with exclusionary zoning laws.
+
+					</small></p>
 				</li>
 				<li>Is the MBTA Communities Act actually reaching the right places?
-					<p><small>Reason: </small></p>
+					<p><small>Reason: After reading up about the MBTA Communities Act, I am curious whether the MBTA designated communities are actually in compliance with the new law. Furthermore, I am curious as to whether there are towns that are "left out" by the MBTA Communities Act (towns that have similar need for transit access and high density housing, but that are not currently on MBTA routes). If so, we could propose targetting these towns for future MBTA expansion.</small></p>
 				</li>
 			</ol>
 		</section>
@@ -107,7 +110,8 @@
 				</figcaption>
 			</figure>
 
-			Moving on to my second question, I will interrogate whether exclusionary zoning is mostly about race, class, or both. A proxy for answering that question is whether race or income is more correlated with single-family zoning practices. To do so, I moved off of Tableau (I couldn't figure out how to make the visualization I had in mind!) and used matplotlib.
+			Moving on to my second question, I will interrogate whether exclusionary zoning is mostly about race, class, or both. A proxy for answering that question is whether race or income is more correlated with single-family zoning practices. To do so, I moved off of Tableau because I need to calculate average household income as a weighted average using the income bracket midpoints, which is very cumbersome in Tableau.
+			Going forward, whenever I need to use average income in my visualizations, I will make them with matplotlib instead of Tableau.
 			I created a scatter plot of average household income vs. fraction of white households for each municipality. The dots themselves are colored by the fraction of land area allocated for single family housing (Figure 6). On the axes of the plot, I also bucketed the average income / average fraction white variables, and plotted the average fraction
 			of area allocated for single family housing in each bucket. The purpose of this element is to visually compare the strength of the gradient with increasing income / whiteness, with increasing amount of land allocated for single-family housing.
 			By comparing the gradient strength visually, I found that household income is more clearly correlated with the amount of single-family zoning, since the redness and the height of the bars largely monotonically increase with increasing household income.
@@ -132,34 +136,46 @@
 				</figcaption>
 			</figure>
 
-			To answer my final question, I first check whether the MBTA communities are actually zoning for other housholds, in addition to single family households.
+			To answer my final question, I first check whether the MBTA communities are actually zoning for other housholds, in addition to single family households. I find that 6 neighborhoods are completely non-compliant (Figure 8), and a majority of neighborhoods
+			have less than half of their land area for non-single family housing. In this visualization, I again filtered the 38 neighborhoods with 0% single family housing, as well as the original 7 neighborhoods from the initial data audit. In summary, the MBTA Communities Act has not already
+			compelled the neighborhoods already served by the MBTA to zone for higher density housing.
 
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/mbta-compliance.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Fraction of land area for non-single family housing in MBTA communities. Although the MBTA Communities Act mandates non-single family housing zoning in MBTA communities, six towns have only single-family housing zoning, and a majority of towns have more than half single-family housing zoning.
 				</figcaption>
 			</figure>
 
+			Finally, I wanted to check whether the MBTA Communities Act is actually reaching towns with the highest need for public transportation,
+			which I define as towns with high populations and low income. My plan was to compare MBTA communities with non-MBTA communities against my metric, and propose high-impact regions for future MBTA expansion. However, there are only two communities 
+			in my dataset which are non-MBTA communities (the few others in the original dataset were filtered for the aforementioned data quality issues). One of these towns, Bolton (blue circle in Figure 9), has above average income and below average population (when compared to the other towns in the dataset). The other, Milford, has below average income and above average population (blue star in Figure 9). Therefore, expanding the MBTA to Milton would be higher impact than to Bolton.
+			It is also noteworthy that both non-MBTA communities currently have below average amounts of non-single family housing.
+			<br>
+			My analysis in Figure 8, however, pointed me toward a more pertinent question: for which MBTA communities is it most urgent to pressure compliance? In order to answer this question, I visualized all communities (except those which were filtered for data quality, see previous) on a scatterplot of average household income vs. population. I designated the quadrant with below average income and above average population as the "highest need" communities for transit access. I then starred the high-need communities with below-average amounts (by land area) of non-single family housing. These are the communities that the MBTA Communities Act is urgently targetting, but that are the least compliant with the mandate (Figure 9). These 9 communities are: Rockport, Swampscott, Foxborough, Randolph, Stoughton, Peabody, Framingham, Natick, and Milton.
+
+
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="imgs/scatter_mbta_pop_income.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Town average household income vs. population, colored according to the amount of non-single family housing zoning. The highest need communities (high population, low income) for which the MBTA Communities Act was designed (lower right quadrant) have nine communities (black stars) with below average amounts of non-single family housing. These are the communities for which it is most urgent to pressure compliance to the MBTA Communities Act. Of the two communities without existing MBTA access (blue), Milton (blue star) would be a higher impact choice for future MBTA expansion.
 				</figcaption>
 			</figure>
 
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
 		</section>
 
 		<section>
 			<h2>Summary</h2>
 
-			<p>WRITE FINAL SUMMARY HERE.</p>
+			<p>In summary, we (1) defined a metric for "aggressive" single family zoning (large land area, but low population in single family housing), and identified a subset of towns meeting this definition as the ones that need zoning reform most urgently. We then profiled the demographics in those towns, broken out by single-family vs. non-single family households, and found that the non-single family households were lower income, more female, and less white than the single-family households. This helped us build a picture of who is being systematically locked out of housing by exclusionary single-family zoning laws (largely poor, female, and minority households). 
+				We then (2) determined that exclusionary zoning laws are more correllated with income than whiteness in this census data. Finally, we (3) determined that many communities are out of compliance with the MBTA Communities Act, and most concerningly, that several high-transit-need communities for which the act was designed are out of compliance. These data can be used to pressure compliance for these communities in particular.
+				<br>
+				Conclusions aside, this assignment helped me appreciate the importance of carefully reading dataset metadata, verifying its assumptions, and sanity checking your data. All three steps were instrumental to me correctly interpreting these data. I also learned that
+				sanity checking your data is a moving target. When thinking about the 38 towns with 0% single family housing zoning, I initially thought
+				that including that data was a reasonable choice, even though it seemed implausible that the statistic was accurate. I did not choose to filter those towns in my data audit, and they appear in my results for Figure 4 and Figure 5.
+				By my second analysis question, however, it became clear that I needed to re-evaluate whether to include those towns or not - their inclusion was completely changing the trend I was observing without them.
+				It wasn't until I visualized a few different correlations in my data that I realized what an impact that potentially erroneous data was having on certain conclusions.
+			</p>
 		</section>
 	</main>
 </body>
